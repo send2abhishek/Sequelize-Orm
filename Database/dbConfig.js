@@ -1,10 +1,8 @@
 const Sequelize = require("sequelize");
 const config = require("config");
 const path = `mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@localhost:3306/${process.env.DATABASE_NAME}`;
-
+const sequelize = new Sequelize(path);
 const databaseConnect = () => {
-  const sequelize = new Sequelize(path);
-
   sequelize
     .authenticate()
     .then(() => {
@@ -12,12 +10,15 @@ const databaseConnect = () => {
     })
     .catch((err) => {
       console.error(config.get("dbConnectError"), err);
-    })
-    .finally(() => {
-      sequelize.close();
     });
 };
 
+const databaseConfig = {};
+
+databaseConfig.Sequelize = Sequelize;
+databaseConfig.sequelize = sequelize;
+
 module.exports = {
   databaseConnect: databaseConnect,
+  databaseConfig: databaseConfig,
 };
