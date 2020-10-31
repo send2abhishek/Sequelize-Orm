@@ -5,8 +5,8 @@ const saveData = (req, res) => {
     title: "Abhishek Aryan",
     description: "Desc",
   };
-  Detail()
-    .create(tutorial)
+
+  Detail.create(tutorial)
     .then((data) => {
       res.status(201).json({
         msg: "data saved",
@@ -23,12 +23,9 @@ const saveData = (req, res) => {
 };
 
 const getData = (req, res) => {
-  Detail()
-    .findAll()
+  Detail.findAll()
     .then((data) => {
-      res.status(200).json({
-        data,
-      });
+      res.status(200).json(data);
     })
     .catch((err) => {
       console.log("Something went wrong ", err);

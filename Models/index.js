@@ -1,19 +1,16 @@
-const model = require("../Database/dbConfig");
+const Sequelize = require("sequelize");
+const { sequelize } = require("../Database/dbConfig");
 
-const { sequelize, Sequelize } = model.databaseConfig;
-const Detail = () => {
-  sequelize.define("Detail", {
-    title: {
-      type: Sequelize.STRING,
-    },
+const Detail = sequelize.define("Detail", {
+  title: {
+    type: Sequelize.STRING,
+  },
 
-    description: {
-      type: Sequelize.STRING,
-    },
-  });
+  description: {
+    type: Sequelize.STRING,
+  },
+});
 
-  return sequelize.models.Detail;
-};
 // sequelize
 //   .sync({ force: true })
 //   .then(() => {

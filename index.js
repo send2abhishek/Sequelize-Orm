@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
+const config = require("config");
 require("dotenv").config();
-require("./Database/dbConfig").databaseConnect();
-
+const db = require("./Database/dbConfig");
 const appRoute = require("./Routes");
 
 // cors enable
@@ -15,6 +15,15 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log(config.get("dbconnectMsg"));
+  })
+  .catch((err) => {
+    console.error(config.get("dbConnectError"), err);
+  });
 
 //Middelware for enabling read json body
 app.use(express.json());
